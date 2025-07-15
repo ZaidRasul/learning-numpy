@@ -1,2 +1,3 @@
 # learning-numpy
-i repository where i add numpy learnings
+A repository where I add numpy learnings.
+Basically, A step towards ML.
