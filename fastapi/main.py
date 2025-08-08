@@ -28,5 +28,5 @@ def list_items(limit: int = 10):
 def get_item(item_id: int) -> str:
     if item_id < len(items):
         return items[item_id]
-    else:
+    else:# Using exception handling to return a 404 error instead of a generic error message
         raise HTTPException(status_code=404, detail="Item not found")
