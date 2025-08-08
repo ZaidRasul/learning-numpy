@@ -13,14 +13,19 @@ class Item(BaseModel):
      is_done: bool = False
 
 
+
+
 items = []
 # get the root page whenever the server is started
 @app.get("/")
 def read_root():
         return {"Hello": "World"}
 
+
+
 #we can create a new item using POST method
 # command: curl -X POST -H "Content-Type: application/json" 'http://127.0.0.1:8000/items?item=example_item'
+
 @app.post("/items")
 def create_item(item: Item):# changed string to Item
     items.append(item)
@@ -29,7 +34,8 @@ def create_item(item: Item):# changed string to Item
 #returns items in a list format upto the limit specified
 # command: curl -X GET 'http://127.0.0.1:8000/items?limit=5'
 #if no limit is specified, it defaults to 10 which is set in the function parameter
-@app.get("/items")
+
+@app.get("/items", response_model=list[Item])  # changed to return a list of Item types
 def list_items(limit: int = 10):
      return items[0:limit]
         
@@ -37,7 +43,8 @@ def list_items(limit: int = 10):
 # we can retrieve an item using GET method
 # command: curl -X GET 'http://127.0.0.1:8000/items/0'
 # where 0 is the index of the item in the items list
-@app.get("/items/{item_id}")
+
+@app.get("/items/{item_id}", response_model=Item)  # changed to return Item type
 def get_item(item_id: int) -> Item:#changed to return Item type
     if item_id < len(items):
         return items[item_id]
