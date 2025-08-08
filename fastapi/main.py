@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -15,7 +16,9 @@ def create_item(item: str):
     items.append(item)
     return {"item": item, "message": "Item added successfully"}
 
-
+#returns items in a list format upto the limit specified
+# command: curl -X GET 'http://127.0.0.1:8000/items?limit=5'
+#if no limit is specified, it defaults to 10 which is set in the function parameter
 @app.get("/items")
 def list_items(limit: int = 10):
      return items[0:limit]
